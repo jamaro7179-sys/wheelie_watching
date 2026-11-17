@@ -13,10 +13,28 @@
         <script src="map.js" type="module"></script>
     </head>
     <body>
-        <h1>🚴🏼‍♀️Wheelie Watching</h1>
+        <!-- Step 5.1: Header with title + time slider -->
+        <header>
+            <h1>🚴🏼‍♀️ Wheelie Watching</h1>
+
+        </header>
 
         <div id="map">
             <svg></svg>
+        </div>
+        
+        <label class = "time-filter">
+            Filter by time:
+            <input type="range" id="time-slider" min="-1" max="1440" value="-1">
+            <time id="selected-time"></time>
+            <em id="any-time">(any time)</em>
+        </label>
+
+        <!-- Step 6.2: Legend (Design 2: separate swatches & labels) -->
+        <div class="legend">
+            <div style="--departure-ratio: 1">More departures</div>
+            <div style="--departure-ratio: 0.5">Balanced</div>
+            <div style="--departure-ratio: 0">More arrivals</div>
         </div>
     </body>
 </html>

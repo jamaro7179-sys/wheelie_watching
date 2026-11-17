@@ -23,7 +23,8 @@ body {
 
 #map {
   width: 100%; /* Adjust width to your desired size */
-  height: 100%; /* Adjust height to your desired size */
+  flex: 1; /* fill the space left by the header and legend */
+  min-height: 60vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
   border-radius: 8px; /* Optional: rounded corners */
 }
@@ -38,11 +39,76 @@ body {
   pointer-events: none;
 }
 
-/* Step 4.3 / 4.4: circle styling (tooltips need pointer events back on) */
+
+/* Step 5.1: Header + slider */
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  width: 100%;
+}
+
+.time-filter {
+  text-align: left;
+  width: 100%;
+  margin-block: 2em;
+}
+
+header time,
+header em {
+  display: block; /* own line, so updating text doesn't move the slider */
+}
+
+header em {
+  color: #777;
+  font-style: italic;
+}
+
+/* Step 6.1 / 6.2: shared color variables for circles and legend swatches */
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* Step 4.3 / 4.4 / 6.1: circle styling (pointer-events back on for tooltips) */
 #map svg circle {
-  fill: steelblue;
+  fill: var(--color);
   fill-opacity: 0.6;
   stroke: white;
   stroke-width: 1;
   pointer-events: auto;
+}
+
+/* Step 6.2: Legend (Design 2) */
+.legend {
+  display: flex;
+  gap: 1.5em;
+  margin-block: 1em;
+  width: 100%;
+  align-items: center;
+}
+
+.legend::before {
+  content: 'Legend:';
+  font-weight: bold;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.legend > div::before {
+  content: '';
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  background: var(--color);
 }
